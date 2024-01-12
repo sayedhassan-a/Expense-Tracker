@@ -14,21 +14,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "budget", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "category_id"})})
+@Table(name = "budget" )
 public class Budget {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnore
     private User user;
 
-    @OneToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Category category;
     private int amount;
-    private Period period;
 }

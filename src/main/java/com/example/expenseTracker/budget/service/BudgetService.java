@@ -3,11 +3,13 @@ package com.example.expenseTracker.budget.service;
 import com.example.expenseTracker.budget.model.Budget;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BudgetService {
-    List<Budget> findAll();
 
-    Budget findById(int id);
+    Optional<Budget> find();
+
+    Optional<Budget> findById(int id);
 
     Budget save(Budget budget);
 

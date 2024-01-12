@@ -2,13 +2,15 @@ package com.example.expenseTracker.budget.controller;
 
 import com.example.expenseTracker.budget.model.Budget;
 import com.example.expenseTracker.budget.service.BudgetService;
+import com.example.expenseTracker.exceptionHandling.exception.NotFoundException;
 import com.example.expenseTracker.exceptionHandling.exception.UnAuthorizedAccessException;
 import com.example.expenseTracker.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -18,13 +20,10 @@ public class BudgetRestController {
     private final UserService userService;
 
     @GetMapping("/budget")
-    public ResponseEntity<List<Budget>> findAll() {
-        return ResponseEntity.ok(budgetService.findAll());
-    }
-
-    @GetMapping("/budget/{id}")
-    public ResponseEntity<Budget> findById(@PathVariable int id) {
-        return ResponseEntity.ok(budgetService.findById(id));
+    public ResponseEntity<Budget> find() {
+        Optional<Budget> budget = budgetService.find();
+        if(budget.isPresent())return ResponseEntity.ok(budget.get());
+        else throw new NotFoundException("Item not found");
     }
 
     @PostMapping("/budget")
