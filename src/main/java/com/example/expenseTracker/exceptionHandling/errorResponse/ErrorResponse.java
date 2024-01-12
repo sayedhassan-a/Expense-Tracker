@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UnAuthorizedAccessErrorResponse {
+public class ErrorResponse {
     private int status;
     private String message;
     private LocalDateTime timeStamp;
