@@ -1,5 +1,6 @@
 package com.example.expenseTracker.expense.controller;
 
+import com.example.expenseTracker.expense.dto.ExpenseDTO;
 import com.example.expenseTracker.expense.model.Expense;
 import com.example.expenseTracker.expense.service.ExpenseService;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +31,12 @@ public class ExpenseRestController {
     }
 
     @PostMapping("/expense")
-    public ResponseEntity<Expense> save(@RequestBody Expense expense) {
+    public ResponseEntity<Expense> save(@RequestBody ExpenseDTO expense) {
         return ResponseEntity.ok(expenseService.save(expense));
     }
 
     @PutMapping("/expense")
-    public ResponseEntity<Expense> update(@RequestBody Expense expense) {
+    public ResponseEntity<Expense> update(@RequestBody ExpenseDTO expense) {
         return ResponseEntity.ok(expenseService.update(expense));
     }
 

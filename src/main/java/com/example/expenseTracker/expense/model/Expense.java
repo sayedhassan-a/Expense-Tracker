@@ -24,7 +24,7 @@ public class Expense {
     private int id;
 
     @Column(name = "amount")
-    private int amount;
+    private long amount;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "user_id", referencedColumnName = "id")
