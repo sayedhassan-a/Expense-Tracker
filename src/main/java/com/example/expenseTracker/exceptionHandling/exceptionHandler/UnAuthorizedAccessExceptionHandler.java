@@ -1,6 +1,6 @@
 package com.example.expenseTracker.exceptionHandling.exceptionHandler;
 
-import com.example.expenseTracker.exceptionHandling.errorResponse.UnAuthorizedAccessErrorResponse;
+import com.example.expenseTracker.exceptionHandling.errorResponse.ErrorResponse;
 import com.example.expenseTracker.exceptionHandling.exception.UnAuthorizedAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class UnAuthorizedAccessExceptionHandler {
     @ExceptionHandler
-    public ResponseEntity<UnAuthorizedAccessErrorResponse> handleException(UnAuthorizedAccessException exc){
-        UnAuthorizedAccessErrorResponse error = new UnAuthorizedAccessErrorResponse();
+    public ResponseEntity<ErrorResponse> handleException(UnAuthorizedAccessException exc){
+        ErrorResponse error = new ErrorResponse();
         error.setStatus(HttpStatus.FORBIDDEN.value());
         error.setMessage(exc.getMessage());
         error.setTimeStamp(LocalDateTime.now());
