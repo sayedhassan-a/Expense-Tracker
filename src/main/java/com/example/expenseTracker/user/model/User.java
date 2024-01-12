@@ -1,5 +1,6 @@
 package com.example.expenseTracker.user.model;
 
+import com.example.expenseTracker.budget.model.Budget;
 import com.example.expenseTracker.category.model.Category;
 import com.example.expenseTracker.income.model.Income;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -51,17 +52,20 @@ public class User implements UserDetails {
     @Column(name = "active")
     private Boolean active;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Expense> expenses;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Income> incomes;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Category> categories;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Budget budget;
 
     public Boolean getActive() {
         return true;
