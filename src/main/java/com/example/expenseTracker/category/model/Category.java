@@ -30,24 +30,17 @@ public class Category {
     @JsonIgnore
     private User user;
     String name;
-    boolean isCustom = true;
 
     @OneToMany(mappedBy = "category", cascade = {CascadeType.DETACH,
             CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JsonIgnore
     private List<Expense> expenses;
-
-    @OneToOne(mappedBy = "category", cascade = {CascadeType.DETACH,
-            CascadeType.MERGE, CascadeType.PERSIST, CascadeType.MERGE})
-    private Budget budget;
-
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
                 ", user=" + user +
                 ", name='" + name + '\'' +
-                ", isCustom=" + isCustom +
                 '}';
     }
 }

@@ -21,12 +21,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findAll() {
-        return categoryRepository.findByIsCustomFalseOrUserId(userService.findCurrentUser().getId());
+        return categoryRepository.findByUserId(userService.findCurrentUser().getId());
     }
 
     @Override
     public Category findById(int id) {
-        return categoryRepository.findByIdAndIsCustomFalseOrIdAndUserId(id, id, userService.findCurrentUser().getId());
+        return categoryRepository.findByIdAndUserId(id, userService.findCurrentUser().getId());
+    }
+
+    @Override
+    public Optional<Category> findByName(String name) {
+        return categoryRepository.findByNameAndUserId(name, userService.findCurrentUser().getId());
     }
 
     @Override
@@ -34,7 +39,6 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = Category.builder().
                 name(request.getName()).
                 user(userService.findCurrentUser()).
-                isCustom(true).
                 build();
         return categoryRepository.save(category);
     }
@@ -48,7 +52,6 @@ public class CategoryServiceImpl implements CategoryService {
                     id(request.getId()).
                     name(request.getName()).
                     user(userService.findCurrentUser()).
-                    isCustom(dbCategory.get().isCustom()).
                     build();
             return categoryRepository.save(category);
         } else
