@@ -1,0 +1,31 @@
+version: '3'
+services:
+  # Spring Boot application
+  app:
+    container_name: app
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    env_file:
+      - .env
+  # MySQL database
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    volumes:
+      - ./data:/data/db
+    environment:
+      MYSQL_ROOT_PASSWORD: ADMIN
+      MYSQL_DATABASE: expense_tracker
+      MYSQL_USER: springstudent
+      MYSQL_PASSWORD: springstudent
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+networks:
+  common_network:
+    driver: bridge

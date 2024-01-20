@@ -33,8 +33,10 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public Expense findById(int id) {
-        return expenseRepository.findByIdAndUserId(id,
+        Expense expense = expenseRepository.findByIdAndUserId(id,
                 userService.findCurrentUser().getId());
+        if(expense == null)throw new UnAuthorizedAccessException("Access Denied");
+        return expense;
     }
 
     @Override
@@ -99,7 +101,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         Expense expense = expenseRepository.findByIdAndUserId(id,
                 userService.findCurrentUser().getId());
         if (expense == null) {
-            throw new NotFoundException("item not found");
+            throw new UnAuthorizedAccessException("Access Denied");
 
         } else expenseRepository.deleteById(id);
     }
